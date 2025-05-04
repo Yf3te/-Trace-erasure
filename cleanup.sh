@@ -45,9 +45,6 @@ windows_cleanup() {
   echo "  - 清理临时文件"
   rd /S /Q "%TEMP%" && md "%TEMP%"
 
-  echo "  - 清理最近文档"
-  powershell -Command "Remove-Item -Force \$env:APPDATA\Microsoft\Windows\Recent\* -Recurse -ErrorAction SilentlyContinue"
-
   echo "  - 清理浏览器缓存（Edge/Chrome/Firefox）"
   powershell -Command "
     \$paths = @(
@@ -109,9 +106,6 @@ linux_cleanup() {
 
   echo "  - 清理 SSH 和 sudo 日志"
   truncate -s 0 /var/log/auth.log /var/log/secure /var/log/faillog 2>/dev/null
-
-  echo "  - 清理 /tmp 和 /var/tmp"
-  rm -rf /tmp/* /var/tmp/*
 
   echo "  - 清理最近打开文件（GNOME/KDE）"
   find /home -maxdepth 2 -type f -name 'recently-used.xbel' -delete 2>/dev/null
